@@ -15,7 +15,7 @@
       scheduler.config.xml_date="%Y-%m-%d %H:%i"; 
       scheduler.init('scheduler_here',null,"week");
 	  scheduler.config.readonly = true;
-      scheduler.load("/reservations/schedule");
+      scheduler.load("<%= asset_reservations_path(@asset, :xml) %>");
 
   	function block_readonly(id){
   				if (!id) return true;
@@ -92,22 +92,19 @@
 
 
 
-	<div class="span-3 colborder" id="sidebar">
-		<div class="span19" id="content">
-			<table border=1>
-				<tbody>
-					<tr><td>Name</td><td><%= @asset.name %></td></tr>
-					<tr><td>Type</td><td><%= @asset.asset_type.name %></td></tr>
-			</table>					
-		</div>
-
-
-
 	<div class="container showgrid">	
 			<div class="span-3 colborder" id ="sidebar" >
 			    <%= render :partial => 'sidebar_menu' %>
 			</div>
-			<h3 align="center" valign="top"> Reservaciones </h3>
+			<h3 align="left" valign="top"> Reservaciones </h3>
+				<div class="span19" id="content">
+					<table>
+						<tbody>
+							<tr><td>Name:&nbsp;&nbsp;<strong><%= @asset.name %></strong></td></tr>
+							<tr><td>Type:&nbsp;&nbsp;<strong><%= @asset.asset_type.name %></strong></td></tr>
+						</tbody>
+					</table>					
+				</div>
 			
 		
 			    <div id="scheduler_here" class="dhx_cal_container" style='width:600px; height:400px;border:2px solid black;  margin-left: auto ; margin-right: auto ;'>

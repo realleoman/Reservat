@@ -27,7 +27,7 @@
      }
 
   	scheduler.attachEvent("onEventSave",function(id,data,is_new_event){	
-  		var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+  		var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
   		var start = convert( data.start_date );
   		var end = convert(data.end_date);
   		var comment = data.text;
@@ -41,7 +41,7 @@
 
 
   	scheduler.attachEvent("onEventAdded", function(event_id,event_object){
-  				    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+  				    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
                       var ev = scheduler.getEvent(event_id);
   					//convertDate(convert, ev.start_date,ev.end_date);
   					var start = convert( ev.start_date );
@@ -95,7 +95,7 @@
 			</div>
 			<hr />
 			<div id="subheader" class="span-24 last">
-			  <a href="#" class="quiet">Rercusos</a>  <a href="#" class="quiet"> Calendario</a>   <a href="#" class="quiet"> Otras opciones... </a> 
+			  <a href="#" class="quiet">Recursos</a>  <a href="#" class="quiet"> Calendario</a>   <a href="#" class="quiet"> Otras opciones... </a> 
 			</div>
 			<hr />
 			<!-- Parte Central Menu izquierdo y contenido... -->
