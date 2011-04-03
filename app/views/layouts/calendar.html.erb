@@ -5,31 +5,12 @@
 <head>
 	<title>test</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 
 <script src="/javascripts/dhtmlx/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
 <link rel="stylesheet" href="/javascripts/dhtmlx/dhtmlxscheduler.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
-<script src="/javascripts/dhtmlx/ext/dhtmlxscheduler_year_view.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="/javascripts/dhtmlx/ext/dhtmlxscheduler_ext.css" type="text/css" media="screen" title="no title" charset="utf-8">
-
-<script src="/javascripts/dhtmlx/ext/dhtmlxscheduler_recurring.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="/javascripts/dhtmlx/ext/dhtmlxscheduler_recurring.css" type="text/css" media="screen" title="no title" charset="utf-8">
-
-<script src="/javascripts/dhtmlx/ext/dhtmlxscheduler_units.js" type="text/javascript" charset="utf-8"></script>
-<!-- script src="/javascripts/dhtmlx/ext/dhtmlxscheduler_expand.js" type="text/javascript" charset="utf-8"></script -->
-
-<script src="/javascripts/dhtmlx/ext/dhtmlxscheduler_agenda_view.js"></script>
-
-<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script> 
-<script src="/javascripts/dhtmlx/ext/dhtmlxscheduler_map_view.js" type="text/javascript" charset="utf-8"></script>
-
-<script src="/javascripts/dhtmlx/ext/dhtmlxscheduler_collision.js"></script>
-
 <script src="/javascripts/dhtmlx/sources/locale_es.js" type="text/javascript" charset="utf-8"></script>
-
-<script src='/javascripts/dhtmlx/ext/dhtmlxscheduler_minical.js' type="text/javascript" charset="utf-8"></script>
 
 <style type="text/css" media="screen">
 		html, body{
@@ -45,80 +26,80 @@
    function init() {
     
 	  
-   	scheduler.config.collision_limit = 1;
+ 
+    scheduler.config.xml_date="%Y-%m-%d %H:%i"; 
+    scheduler.init('scheduler_here',null,"week");
+    scheduler.load("/reservations/schedule");
+
+	function block_readonly(id){
+				if (!id) return true;
+				return !this.getEvent(id).readonly;
+	}
+	scheduler.attachEvent("onBeforeDrag",block_readonly)
+	scheduler.attachEvent("onClick",block_readonly)
 
 
-	var assets=[
-		{key:1, label:"James Smith"},
-		{key:2, label:"John Williams"},
-		{key:3, label:"David Miller"},
-		{key:4, label:"Linda Brown"}
-	];
-	
-	
-     scheduler.config.xml_date="%Y-%m-%d %H:%i"; 
-	 scheduler.xy.scale_height = 20;
-	 scheduler.xy.scale_width = 10;
-     scheduler.init('scheduler_here',null,"month");
-
-
-	  scheduler.locale.labels.section_custom1="Location";
-	  scheduler.locale.labels.section_custom2="Details";
-      scheduler.locale.labels.section_custom3="Options";
-	 
-	scheduler.config.lightbox.sections=[	
-		//{ name:"description", height:72, type:"textarea", map_to:"text"},
-		{ name:"time", height:72, type:"calendar_time", map_to:"auto"}		
-	  ]
-	
-
-	scheduler.createUnitsView({
-		name:"unit",
-		property:"text",
-		list:assets
-	});
-	
-
-     scheduler.load("/reservations/schedule");
-
+   }
 
 	scheduler.attachEvent("onEventSave",function(id,data,is_new_event){	
 		var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
 		var start = convert( data.start_date );
-		var convert2 = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
-		var end = convert2( data.end_date);
-		alert(Date.parse(data.start_date));
-		alert(Date.parse(data.end_date));
-		//alert("Start:" +  start + " End: " + end);
-		 // if (parseInt((Date.parse(data.start_date).to_s)) > (parseInt(Date.parse(data.end_date).to_s))) {
-		 // 		alert("La fecha final es menor que la fecha inicial");
-		 // 		return false;
-		 //  		}
-		 // 		document.getElementById('reservation_start_at').value = start;
+		var end = convert(data.end_date);
+		var comment = data.text;
+		// before = [start,end,data.text];
+		// 		alert(before);
+		document.getElementById('reservation_start_at').value = start;
 		document.getElementById('reservation_stop_at').value = end;
+		document.getElementById('reservation_comment').value = data.text;
 		return true;
 	});
-
-		
-   }
-
-
-   function show_minical(){
-      if (scheduler.isCalendarVisible())
-         scheduler.destroyCalendar();
-      else
-         scheduler.renderCalendar({
-            position:"dhx_minical_icon",
-            date:scheduler._date,
-            navigation:true,
-            handler:function(date,calendar){
-               scheduler.setCurrentView(date);
-               scheduler.destroyCalendar()
-            }
-         });
-   }
+	
+	
+	scheduler.attachEvent("onEventAdded", function(event_id,event_object){
+				    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+                    var ev = scheduler.getEvent(event_id);
+					//convertDate(convert, ev.start_date,ev.end_date);
+					var start = convert( ev.start_date );
+					var end = convert( ev.end_date);
+					var comment = scheduler.getEvent(event_id).text;
+					//before = [ev.start_date, ev.end_date, comment];
+					//alert(before);				
+					document.getElementById('reservation_start_at').value = start;
+					document.getElementById('reservation_stop_at').value = end;
+					document.getElementById('reservation_comment').value = comment;
+          });
 
 
+		scheduler.attachEvent("onEventChanged", function(event_id,event_object){
+					    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+	                    var ev1 = scheduler.getEvent(event_id);
+						//convertDate(convert, ev.start_date,ev.end_date);
+						var start = convert( ev1.start_date );
+						var end = convert( ev1.end_date);
+						var comment = scheduler.getEvent(event_id).text;
+						//before = [ev1.start_date, ev1.end_date];
+						//alert(before);				
+						document.getElementById('reservation_start_at').value = start;
+						document.getElementById('reservation_stop_at').value = end;
+						document.getElementById('reservation_comment').value = comment;
+
+	          });
+
+
+
+		function converDate(convert,start,end,comment){
+			//var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+			var startnew = convert( start );
+			var endnew = convert( end);
+			alert(startnew+endnew);
+			document.getElementById('reservation_start_at').value = startnew;
+			document.getElementById('reservation_stop_at').value = endnew;
+			document.getElementById('reservation_comments').value = comment;		
+			
+		}
+
+
+ 
 </script>
 </head>
 
@@ -130,14 +111,9 @@
 				<div class="dhx_cal_next_button">&nbsp;</div>
 				<div class="dhx_cal_today_button"></div>
 				<div class="dhx_cal_date"></div>
-				<div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
-				<div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
-				<div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
-				<div class="dhx_cal_tab" name="year_tab" style="right:12px;"></div>
-				<div class="dhx_cal_tab" name="unit_tab" style="right:280px;"></div>
-				<div class="dhx_cal_tab" name="agenda_tab" style="right:350px;"></div>
-				<div class="dhx_cal_tab" name="map_tab" style="right:420px;"></div>
-				<!-- div class="dhx_minical_icon" id="dhx_minical_icon" onclick="show_minical()">&nbsp;</div -->
+				<div class="dhx_cal_tab" name="day_tab" style="right:76px;"></div>
+				<div class="dhx_cal_tab" name="week_tab" style="right:24px;"></div>
+				<div class="dhx_cal_tab" name="month_tab" style="right:120px;"></div>
 			</div>
 			<div class="dhx_cal_header"></div>
 			<div class="dhx_cal_data"></div>		

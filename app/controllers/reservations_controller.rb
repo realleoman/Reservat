@@ -18,9 +18,9 @@ class ReservationsController < ApplicationController
 
     @asset = Asset.find params[:asset_id]
     
-    params[:reservation].each do |test|
-      puts test
-    end
+    # params[:reservation].each do |test|
+    #      puts test
+    #    end
     
     @asset.reservations.build params[:reservation]
     if @asset.save
