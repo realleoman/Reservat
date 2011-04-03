@@ -12,7 +12,7 @@
 <body>
 	<div class="container showgrid">	
 			<div id="header" class="span-24 last" >
-			  <h1 id="book_haven"><img src="images/header.jpg" alt="World header image" id="header-image"  height="100px" /></h1><h3 class="alt">Eficiencia en el uso de los recursos...</h3>
+			  <h1 id="book_haven"><img src="/images/header.jpg" alt="World header image" id="header-image"  height="100px" /></h1><h3 class="alt">Eficiencia en el uso de los recursos...</h3>
 			</div>
 			<hr />
 			<div id="subheader" class="span-24 last">
@@ -20,13 +20,7 @@
 			</div>
 			<hr />
 			<!-- Parte Central Menu izquierdo y contenido... -->
-			<div class="span-3 colborder" id="sidebar">
-					<h3 class="alt"><a href="/assets/" class="quiet">List Assets</a> </h3>
-					<h3 class="alt"><a href="/assets/new" class="quiet">New Assets</a> </h3>
-			</div>
-			<div class="span-19" id="content">
-				<%= yield %>
-			</div>
+			<%= yield %>
 	</div>
 </body>
 </html>
