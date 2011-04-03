@@ -14,6 +14,7 @@
      function init() {
       scheduler.config.xml_date="%Y-%m-%d %H:%i"; 
       scheduler.init('scheduler_here',null,"week");
+	  scheduler.config.readonly = true;
       scheduler.load("<%= asset_reservations_path(@asset, :xml) %>");
 
   	function block_readonly(id){
@@ -27,7 +28,7 @@
      }
 
   	scheduler.attachEvent("onEventSave",function(id,data,is_new_event){	
-  		var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
+  		var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
   		var start = convert( data.start_date );
   		var end = convert(data.end_date);
   		var comment = data.text;
@@ -41,7 +42,7 @@
 
 
   	scheduler.attachEvent("onEventAdded", function(event_id,event_object){
-  				    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
+  				    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
                       var ev = scheduler.getEvent(event_id);
   					//convertDate(convert, ev.start_date,ev.end_date);
   					var start = convert( ev.start_date );
@@ -89,21 +90,23 @@
 
 <body onload="init();">
 
+
+
 	<div class="container showgrid">	
-			<div id="header" class="span-24 last" >
-			  <h1 id="book_haven"><img src="/images/header.jpg" alt="World header image" id="header-image"  height="100px" /></h1><h3 class="alt">Eficiencia en el uso de los recursos...</h3>
-			</div>
-			<hr />
-			<div id="subheader" class="span-24 last">
-			  <a href="#" class="quiet">Recursos</a>  <a href="#" class="quiet"> Calendario</a>   <a href="#" class="quiet"> Otras opciones... </a> 
-			</div>
-			<hr />
-			<!-- Parte Central Menu izquierdo y contenido... -->
 			<div class="span-3 colborder" id ="sidebar" >
-			    <%= render :partial => 'assets/sidebar_menu' %>
+			    <%= render :partial => 'sidebar_menu' %>
 			</div>
-			<div class="span-19 last" id ="content" >
-			    <%= render :partial => 'reservation_form' %>
+			<h3 align="left" valign="top"> Reservaciones </h3>
+				<div class="span19" id="content">
+					<table>
+						<tbody>
+							<tr><td>Name:&nbsp;&nbsp;<strong><%= @asset.name %></strong></td></tr>
+							<tr><td>Type:&nbsp;&nbsp;<strong><%= @asset.asset_type.name %></strong></td></tr>
+						</tbody>
+					</table>					
+				</div>
+			
+		
 			    <div id="scheduler_here" class="dhx_cal_container" style='width:600px; height:400px;border:2px solid black;  margin-left: auto ; margin-right: auto ;'>
                 			<div class="dhx_cal_navline">
                 				<div class="dhx_cal_prev_button">&nbsp;</div>
@@ -123,5 +126,12 @@
             
                     
 	</div>
+
+
+	
+	
+	
+	
 </body>
 </html>
+
