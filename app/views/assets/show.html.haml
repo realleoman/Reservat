@@ -1,3 +1,17 @@
-.h1 Asset
+%h2 Asset
 
 %p= @asset.name
+
+%h3 Reservaciones
+
+%table{:border => "1"}
+    %thead
+        %th Comment
+        %th Start at
+        %th Stop at
+    %tbody
+        - @asset.reservations.each do |reservation|
+            %tr
+                %td= reservation.comment
+                %td= reservation.start_at.to_s
+                %td= reservation.stop_at.to_s

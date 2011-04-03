@@ -1,0 +1,17 @@
+%h3 New reservation
+
+%p= @asset.name
+
+= form_for @reservation, :url => asset_reservations_path(@asset) do |f|
+    %fieldset
+        %label Comment
+        = f.text_field :comment
+        %br
+        %label Start at
+        = f.datetime_select :start_at
+        %br
+        %label Stop_at
+        = f.datetime_select :stop_at
+        %br
+        = submit_tag 'Create'
+
