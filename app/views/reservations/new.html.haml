@@ -7,11 +7,13 @@
         %label Comment
         = f.text_field :comment
         %br
-        %label Start at
-        = f.datetime_select :start_at
+        /%label Start at
+        /= f.datetime_select :start_at
         %br
-        %label Stop_at
-        = f.datetime_select :stop_at
+        /%label Stop_at
+        /= f.datetime_select :stop_at
+        = f.hidden_field :start_at
+        = f.hidden_field :stop_at
         %br
-        = submit_tag 'Create'
+        = button_to_function 'Create', "send_data()"
 

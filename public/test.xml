@@ -1,0 +1,4 @@
+<data>
+<event id='1' start_date='2011-04-02 13:00' end_date='2011-04-03 16:00' text='Hackaton 2011' details='SAITC' event_location='Monterrey' assets="Building a" />
+<event id='2' start_date='2011-04-04 13:00' end_date='2011-04-04 16:00' text='Tragaton 2011' details='SAITC' event_location='Monterrey' assets="Truck Ford" />
+</data>

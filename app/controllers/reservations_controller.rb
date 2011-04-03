@@ -1,5 +1,7 @@
 class ReservationsController < ApplicationController
-
+  
+  layout "calendar"
+  
   def index
   end
 
@@ -8,11 +10,23 @@ class ReservationsController < ApplicationController
     @reservation = @asset.reservations.new
   end
 
+	def schedule
+	  @reservation = Reservation.all
+	end
+
   def create
+
     @asset = Asset.find params[:asset_id]
+    
+    params[:reservation].each do |test|
+      puts test
+    end
+    
     @asset.reservations.build params[:reservation]
     if @asset.save
-      redirect_to assets_path
+      #redirect_to asset_path(@asset.id)
+      redirect_to "/assets/"+@asset.id.to_s
+      #render :xml
     else
       render :new
     end
