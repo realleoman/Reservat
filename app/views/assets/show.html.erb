@@ -92,35 +92,47 @@
 
 
 
-	<div class="container showgrid">	
+	<div class="container showgrid">
+	    <div id="header" class="span-24 last" >
+		  <h1 id="book_haven"><img src="/images/header.jpg" alt="World header image" id="header-image"  height="100px" /></h1><h3 class="alt">Eficiencia en el uso de los recursos...</h3>
+		</div>
+		<hr />
+		<div id="subheader" class="span-24 last">
+		  <a href="#" class="quiet">Recursos</a>  <a href="#" class="quiet"> Calendario</a>   <a href="#" class="quiet"> Otras opciones... </a> 
+		</div>
+		<hr />
+		
 			<div class="span-3 colborder" id ="sidebar" >
 			    <%= render :partial => 'sidebar_menu' %>
 			</div>
-			<h3 align="left" valign="top"> Reservaciones </h3>
-				<div class="span19" id="content">
+
+			
+				<div class="span19 last" id="content">
+				    <h3> Reservaciones </h3>
+				    
 					<table>
 						<tbody>
 							<tr><td>Name:&nbsp;&nbsp;<strong><%= @asset.name %></strong></td></tr>
 							<tr><td>Type:&nbsp;&nbsp;<strong><%= @asset.asset_type.name %></strong></td></tr>
 						</tbody>
 					</table>					
-				</div>
+				
 			
 		
-			    <div id="scheduler_here" class="dhx_cal_container" style='width:600px; height:400px;border:2px solid black;  margin-left: auto ; margin-right: auto ;'>
-                			<div class="dhx_cal_navline">
-                				<div class="dhx_cal_prev_button">&nbsp;</div>
-                				<div class="dhx_cal_next_button">&nbsp;</div>
-                				<div class="dhx_cal_today_button"></div>
-                				<div class="dhx_cal_date"></div>
-                				<div class="dhx_cal_tab" name="day_tab" style="right:76px;"></div>
-                				<div class="dhx_cal_tab" name="week_tab" style="right:24px;"></div>
-                				<div class="dhx_cal_tab" name="month_tab" style="right:120px;"></div>
-                			</div>
-                			<div class="dhx_cal_header"></div>
-                			<div class="dhx_cal_data"></div>		
+			        <div id="scheduler_here" class="dhx_cal_container" style='width:600px; height:400px;border:2px solid black;  margin-left: auto ; margin-right: auto ;'>
+                    			<div class="dhx_cal_navline">
+                    				<div class="dhx_cal_prev_button">&nbsp;</div>
+                    				<div class="dhx_cal_next_button">&nbsp;</div>
+                    				<div class="dhx_cal_today_button"></div>
+                    				<div class="dhx_cal_date"></div>
+                    				<div class="dhx_cal_tab" name="day_tab" style="right:76px;"></div>
+                    				<div class="dhx_cal_tab" name="week_tab" style="right:24px;"></div>
+                    				<div class="dhx_cal_tab" name="month_tab" style="right:120px;"></div>
+                    			</div>
+                    			<div class="dhx_cal_header"></div>
+                    			<div class="dhx_cal_data"></div>		
+                    </div>
                 </div>
-                
 			</div>
 			
             

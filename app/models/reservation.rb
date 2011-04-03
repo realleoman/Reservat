@@ -6,8 +6,9 @@ class Reservation < ActiveRecord::Base
     (start_time >= start_at && start_time <= stop_at) || (stop_time >= start_at && stop_time <= stop_at)
   end
 
-  def validate_no_funciona
-    if reservation = asset.reservations.find {|r| r.has_conflict_with?(start_at, stop_at)}
+  def validate
+    saved_reservations = Reservation.find_all_by_asset_id(asset_id)
+    if reservation = saved_reservations.find {|r| r.has_conflict_with?(start_at, stop_at)}
       errors[:base] << "There was a time conflict with reservation #{reservation.id}"
     end
   end

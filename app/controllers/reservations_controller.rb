@@ -19,13 +19,13 @@ class ReservationsController < ApplicationController
     #      puts test
     #    end
     
-    @asset.reservations.build params[:reservation]
+    @reservation = @asset.reservations.build params[:reservation]
     if @asset.save
       #redirect_to asset_path(@asset.id)
       redirect_to "/assets/"+@asset.id.to_s
       #render :xml
     else
-      render :new
+      render :new, :layout => false
     end
   end
 
