@@ -28,7 +28,7 @@
      }
 
   	scheduler.attachEvent("onEventSave",function(id,data,is_new_event){	
-  		var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+  		var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
   		var start = convert( data.start_date );
   		var end = convert(data.end_date);
   		var comment = data.text;
@@ -42,7 +42,7 @@
 
 
   	scheduler.attachEvent("onEventAdded", function(event_id,event_object){
-  				    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+  				    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
                       var ev = scheduler.getEvent(event_id);
   					//convertDate(convert, ev.start_date,ev.end_date);
   					var start = convert( ev.start_date );
@@ -57,7 +57,7 @@
 
 
   		scheduler.attachEvent("onEventChanged", function(event_id,event_object){
-  					    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+  					    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
   	                    var ev1 = scheduler.getEvent(event_id);
   						//convertDate(convert, ev.start_date,ev.end_date);
   						var start = convert( ev1.start_date );
@@ -74,7 +74,7 @@
 
 
   		function converDate(convert,start,end,comment){
-  			//var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+  			//var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
   			var startnew = convert( start );
   			var endnew = convert( end);
   			alert(startnew+endnew);
