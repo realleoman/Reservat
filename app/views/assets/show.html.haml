@@ -1,6 +1,14 @@
 %h2 Asset
 
-%p= @asset.name
+%table{:border => "1"}
+    %tbody
+        %tr
+            %td Name
+            %td= @asset.name
+        %tr
+            %td Type
+            %td= @asset.asset_type.name
+
 
 %h3 Reservaciones
 
