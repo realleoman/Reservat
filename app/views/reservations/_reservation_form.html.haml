@@ -1,0 +1,9 @@
+%h3 New reservation
+
+%p= @asset.name
+
+= form_for @reservation, :url => asset_reservations_path(@asset) do |f|
+    = f.hidden_field :start_at
+    = f.hidden_field :stop_at
+    = f.hidden_field :comment
+    = f.submit 'Create'

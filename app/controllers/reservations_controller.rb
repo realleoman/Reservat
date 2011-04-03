@@ -1,13 +1,12 @@
 class ReservationsController < ApplicationController
-  
-  layout "calendar"
-  
+
   def index
   end
 
   def new
     @asset = Asset.find params[:asset_id]
     @reservation = @asset.reservations.new
+    render :layout => false
   end
 
 	def schedule

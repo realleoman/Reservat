@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reservat</title>
+    <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="/stylesheets/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
+
+  <script src="/javascripts/dhtmlx/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" href="/javascripts/dhtmlx/dhtmlxscheduler.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <script src="/javascripts/dhtmlx/sources/locale_es.js" type="text/javascript" charset="utf-8"></script>
+      
+  <script type="text/javascript" charset="utf-8">
+     function init() {
+      scheduler.config.xml_date="%Y-%m-%d %H:%i"; 
+      scheduler.init('scheduler_here',null,"week");
+      scheduler.load("/reservations/schedule");
+
+  	function block_readonly(id){
+  				if (!id) return true;
+  				return !this.getEvent(id).readonly;
+  	}
+  	scheduler.attachEvent("onBeforeDrag",block_readonly)
+  	scheduler.attachEvent("onClick",block_readonly)
+
+
+     }
+
+  	scheduler.attachEvent("onEventSave",function(id,data,is_new_event){	
+  		var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+  		var start = convert( data.start_date );
+  		var end = convert(data.end_date);
+  		var comment = data.text;
+  		// before = [start,end,data.text];
+  		// 		alert(before);
+  		document.getElementById('reservation_start_at').value = start;
+  		document.getElementById('reservation_stop_at').value = end;
+  		document.getElementById('reservation_comment').value = data.text;
+  		return true;
+  	});
+
+
+  	scheduler.attachEvent("onEventAdded", function(event_id,event_object){
+  				    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+                      var ev = scheduler.getEvent(event_id);
+  					//convertDate(convert, ev.start_date,ev.end_date);
+  					var start = convert( ev.start_date );
+  					var end = convert( ev.end_date);
+  					var comment = scheduler.getEvent(event_id).text;
+  					//before = [ev.start_date, ev.end_date, comment];
+  					//alert(before);				
+  					document.getElementById('reservation_start_at').value = start;
+  					document.getElementById('reservation_stop_at').value = end;
+  					document.getElementById('reservation_comment').value = comment;
+            });
+
+
+  		scheduler.attachEvent("onEventChanged", function(event_id,event_object){
+  					    var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+  	                    var ev1 = scheduler.getEvent(event_id);
+  						//convertDate(convert, ev.start_date,ev.end_date);
+  						var start = convert( ev1.start_date );
+  						var end = convert( ev1.end_date);
+  						var comment = scheduler.getEvent(event_id).text;
+  						//before = [ev1.start_date, ev1.end_date];
+  						//alert(before);				
+  						document.getElementById('reservation_start_at').value = start;
+  						document.getElementById('reservation_stop_at').value = end;
+  						document.getElementById('reservation_comment').value = comment;
+
+  	          });
+
+
+
+  		function converDate(convert,start,end,comment){
+  			//var convert = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s", true);
+  			var startnew = convert( start );
+  			var endnew = convert( end);
+  			alert(startnew+endnew);
+  			document.getElementById('reservation_start_at').value = startnew;
+  			document.getElementById('reservation_stop_at').value = endnew;
+  			document.getElementById('reservation_comments').value = comment;
+  		}
+
+
+
+  </script>
+</head>
+
+<body onload="init();">
+
+	<div class="container showgrid">	
+			<div id="header" class="span-24 last" >
+			  <h1 id="book_haven"><img src="/images/header.jpg" alt="World header image" id="header-image"  height="100px" /></h1><h3 class="alt">Eficiencia en el uso de los recursos...</h3>
+			</div>
+			<hr />
+			<div id="subheader" class="span-24 last">
+			  <a href="#" class="quiet">Rercusos</a>  <a href="#" class="quiet"> Calendario</a>   <a href="#" class="quiet"> Otras opciones... </a> 
+			</div>
+			<hr />
+			<!-- Parte Central Menu izquierdo y contenido... -->
+			<div class="span-3 colborder" id ="sidebar" >
+			    <%= render :partial => 'assets/sidebar_menu' %>
+			</div>
+			<div class="span-19 last" id ="content" >
+			    <%= render :partial => 'reservation_form' %>
+			    <div id="scheduler_here" class="dhx_cal_container" style='width:600px; height:400px;border:2px solid black;  margin-left: auto ; margin-right: auto ;'>
+                			<div class="dhx_cal_navline">
+                				<div class="dhx_cal_prev_button">&nbsp;</div>
+                				<div class="dhx_cal_next_button">&nbsp;</div>
+                				<div class="dhx_cal_today_button"></div>
+                				<div class="dhx_cal_date"></div>
+                				<div class="dhx_cal_tab" name="day_tab" style="right:76px;"></div>
+                				<div class="dhx_cal_tab" name="week_tab" style="right:24px;"></div>
+                				<div class="dhx_cal_tab" name="month_tab" style="right:120px;"></div>
+                			</div>
+                			<div class="dhx_cal_header"></div>
+                			<div class="dhx_cal_data"></div>		
+                </div>
+                
+			</div>
+			
+            
+                    
+	</div>
+</body>
+</html>

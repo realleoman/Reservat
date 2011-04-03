@@ -1,8 +1,5 @@
 %div{:class => "span-3 colborder" , :id => "sidebar" } 
-	%h3{:class=> "alt"} 
-		%a{ :href => "/assets/" , :class => "quiet"} List Assets
-	%h3{:class=> "alt"} 
-		%a{ :href => "/assets/new" , :class => "quiet"} New Assets
+	= render :partial => 'sidebar_menu'
 %div{:class => "span-19" , :id => "content" }
 	%table{:border => "1"}
 		%tbody
