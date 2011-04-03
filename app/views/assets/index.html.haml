@@ -1,0 +1,5 @@
+.h1 Asset List
+
+- @assets.each do |asset|
+    %p= asset.name
+    = link_to 'View', asset_path(asset)
