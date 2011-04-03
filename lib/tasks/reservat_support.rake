@@ -14,7 +14,7 @@ namespace :reservat_support do
   task :create_reservations => :environment do
     t = Time.now
     a = Asset.first
-    a.asset_reservations.build :start_at => (t + 30.minutes).to_datetime, :stop_at => (t + 60.minutes).to_datetime
+    a.reservations.build :start_at => (t + 30.minutes).to_datetime, :stop_at => (t + 60.minutes).to_datetime
     a.save
   end
 end

@@ -1,6 +1,6 @@
 class CreateAssetReservations < ActiveRecord::Migration
   def self.up
-    create_table :asset_reservations do |t|
+    create_table :reservations do |t|
       t.references 'asset'
       t.column 'start_at', :datetime
       t.column 'stop_at', :datetime
@@ -12,6 +12,6 @@ class CreateAssetReservations < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :asset_reservations
+    drop_table :reservations
   end
 end

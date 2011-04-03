@@ -1,5 +1,7 @@
 Reservat::Application.routes.draw do
-  resources :assets
+  resources :assets do
+    resources :reservations
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

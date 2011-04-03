@@ -12,17 +12,6 @@
 
 ActiveRecord::Schema.define(:version => 20110402220843) do
 
-  create_table "asset_reservations", :force => true do |t|
-    t.integer  "asset_id"
-    t.datetime "start_at"
-    t.datetime "stop_at"
-    t.integer  "duration",   :default => 0
-    t.integer  "created_by"
-    t.integer  "updated_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "asset_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -32,6 +21,17 @@ ActiveRecord::Schema.define(:version => 20110402220843) do
   create_table "assets", :force => true do |t|
     t.string   "name"
     t.integer  "asset_type_id"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reservations", :force => true do |t|
+    t.integer  "asset_id"
+    t.datetime "start_at"
+    t.datetime "stop_at"
+    t.integer  "duration",   :default => 0
     t.integer  "created_by"
     t.integer  "updated_by"
     t.datetime "created_at"

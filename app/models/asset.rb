@@ -1,4 +1,4 @@
 class Asset < ActiveRecord::Base
-  has_many :asset_reservations, :dependent => :destroy
+  has_many :reservations, :dependent => :destroy
   belongs_to :asset_type
 end
