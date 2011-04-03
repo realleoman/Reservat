@@ -1,0 +1,12 @@
+%h3 New asset
+
+
+= form_for @asset, :url => assets_path(@asset) do |f|
+    %fieldset
+        %label Name
+        = f.text_field :name
+        %br
+        = f.collection_select :asset_type_id, AssetType.all, :id, :name
+        %br
+        = f.submit 'Crear'
+
