@@ -14,7 +14,7 @@
      function init() {
       scheduler.config.xml_date="%Y-%m-%d %H:%i"; 
       scheduler.init('scheduler_here',null,"week");
-      scheduler.load("/reservations/schedule");
+      scheduler.load("<%= asset_reservations_path(@asset, :xml) %>");
 
   	function block_readonly(id){
   				if (!id) return true;

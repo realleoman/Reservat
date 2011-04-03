@@ -1,6 +1,8 @@
 class ReservationsController < ApplicationController
 
   def index
+    @asset = Asset.find params[:asset_id]
+    @reservations = @asset.reservations
   end
 
   def new
@@ -8,10 +10,6 @@ class ReservationsController < ApplicationController
     @reservation = @asset.reservations.new
     render :layout => false
   end
-
-	def schedule
-	  @reservation = Reservation.all
-	end
 
   def create
 
