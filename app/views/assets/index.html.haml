@@ -1,0 +1,14 @@
+.h1 Asset List
+
+%table{:border => "1"}
+    %thead
+        %th Name
+        %th View
+        %th New reservation
+    %tbody
+        - @assets.each do |asset|
+            %tr
+                %td= asset.name
+                %td= link_to 'View', asset_path(asset)
+                %td= link_to 'Create', new_asset_reservation_path(asset)
+
