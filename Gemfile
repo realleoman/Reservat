@@ -5,3 +5,6 @@ gem 'rails', '3.0.4'
 gem 'mysql'
 
 gem 'haml'
+
+
+
