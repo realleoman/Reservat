@@ -20,7 +20,8 @@ class ReservationsController < ApplicationController
     #    end
     
     @reservation = @asset.reservations.build params[:reservation]
-    if @asset.save
+    # if @asset.save
+    if @reservation.save
       #redirect_to asset_path(@asset.id)
       redirect_to "/assets/"+@asset.id.to_s
       #render :xml
